@@ -15,22 +15,24 @@ class InvoiceController
         $filter = clean($_GET['filter'] ?? 'all');
         $date = clean($_GET['date'] ?? date('Y-m-d'));
         
-        $where = "DATE(i.created_at) = ?";
+        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $date)) {
+            $date = date('Y-m-d');
+        }
+
+        $sql = "SELECT i.*, p.full_name AS patient_name, p.electronic_number
+                FROM invoices i
+                JOIN patients p ON i.patient_id = p.id
+                WHERE DATE(i.created_at) = ?";
         $params = [$date];
         
         if ($filter !== 'all') {
-            $where .= " AND i.status = ?";
+            $sql .= " AND i.status = ?";
             $params[] = $filter;
         }
         
-        $invoices = Database::fetchAll(
-            "SELECT i.*, p.full_name AS patient_name, p.electronic_number
-             FROM invoices i
-             JOIN patients p ON i.patient_id = p.id
-             WHERE $where
-             ORDER BY i.created_at DESC",
-            $params
-        );
+        $sql .= " ORDER BY i.created_at DESC";
+        
+        $invoices = Database::fetchAll($sql, $params);
         
         // إحصائيات اليوم
         $stats = $this->getDayStats($date);
@@ -294,6 +296,10 @@ class InvoiceController
      */
     private function getDayStats(string $date): array
     {
+        if (!preg_match("/^\d{4}-\d{2}-\d{2}$/", $date)) {
+            $date = date('Y-m-d');
+        }
+
         return [
             'total_invoices' => Database::count('invoices', 'DATE(created_at) = ?', [$date]),
             'total_amount' => Database::fetchOne(
