@@ -95,14 +95,21 @@ class InvoiceController
         ]);
         
         // إضافة البنود
+        // إضافة البنود
         foreach ($items as $item) {
+            $serviceId = isset($item['service_id']) ? (int)$item['service_id'] : null;
+            $description = clean($item['description'] ?? '');
+            $quantity = (float)($item['quantity'] ?? 1);
+            $price = (float)($item['price'] ?? 0);
+            $lineTotal = $quantity * $price;
+
             Database::insert('invoice_items', [
                 'invoice_id' => $invoiceId,
-                'service_id' => $item['service_id'] ?? null,
-                'description' => $item['description'],
-                'quantity' => $item['quantity'],
-                'unit_price' => $item['price'],
-                'total' => $item['quantity'] * $item['price']
+                'service_id' => $serviceId ?: null,
+                'description' => $description,
+                'quantity' => $quantity,
+                'unit_price' => $price,
+                'total' => $lineTotal
             ]);
         }
         
