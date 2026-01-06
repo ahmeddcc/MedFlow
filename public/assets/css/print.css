@@ -1,0 +1,317 @@
+/**
+ * MedFlow - أنماط الطباعة الحرارية
+ * Thermal Print Styles (58mm/80mm)
+ */
+
+/* إعادة تعيين */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    line-height: 1.4;
+    background: #fff;
+    color: #000;
+    direction: rtl;
+}
+
+/* حاوي الإيصال */
+.receipt {
+    width: 58mm; /* عرض طابعة 58mm */
+    max-width: 80mm;
+    margin: 0 auto;
+    padding: 5mm;
+    background: #fff;
+}
+
+/* رأس الإيصال */
+.receipt-header {
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.clinic-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.doctor-name {
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.clinic-info {
+    font-size: 10px;
+    color: #333;
+}
+
+/* الفواصل */
+.divider {
+    text-align: center;
+    font-size: 10px;
+    margin: 5px 0;
+    color: #000;
+    letter-spacing: -1px;
+}
+
+/* عنوان الإيصال */
+.receipt-title {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.invoice-number,
+.rx-number,
+.order-number {
+    text-align: center;
+    font-size: 11px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+/* معلومات الإيصال */
+.receipt-info,
+.patient-info {
+    margin: 5px 0;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin: 2px 0;
+}
+
+.turn-number {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* نوع الزيارة */
+.visit-type {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px;
+    background: #f0f0f0;
+    margin: 5px 0;
+}
+
+/* البنود */
+.items-section {
+    margin: 5px 0;
+}
+
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin: 3px 0;
+    padding-bottom: 2px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.item-name {
+    flex: 1;
+}
+
+.item-qty {
+    width: 30px;
+    text-align: center;
+}
+
+.item-price {
+    width: 50px;
+    text-align: left;
+}
+
+/* الإجماليات */
+.totals-section {
+    margin: 5px 0;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    margin: 2px 0;
+}
+
+.total-final {
+    font-size: 14px;
+    font-weight: bold;
+    border-top: 1px solid #000;
+    padding-top: 3px;
+    margin-top: 3px;
+}
+
+.total-remaining {
+    color: #c00;
+    font-weight: bold;
+}
+
+/* الحالة */
+.status-section {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    background: #000;
+    color: #fff;
+    font-size: 11px;
+}
+
+/* الأدوية */
+.medications-section {
+    margin: 5px 0;
+}
+
+.med-item {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted #ccc;
+}
+
+.med-number {
+    font-weight: bold;
+    width: 15px;
+}
+
+.med-details {
+    flex: 1;
+}
+
+.med-name {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.med-dosage {
+    font-size: 10px;
+    color: #333;
+}
+
+.med-instructions {
+    font-size: 9px;
+    font-style: italic;
+    color: #666;
+}
+
+/* الملاحظات */
+.notes-section {
+    margin: 5px 0;
+    font-size: 10px;
+}
+
+.notes-title {
+    font-weight: bold;
+}
+
+.notes-text {
+    margin-top: 2px;
+}
+
+/* نتائج التحليل */
+.result-section {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.test-name {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.result-box {
+    background: #f5f5f5;
+    padding: 8px;
+    margin: 5px 0;
+}
+
+.result-label {
+    font-size: 10px;
+    color: #666;
+}
+
+.result-value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.result-value.high,
+.result-value.low,
+.result-value.abnormal {
+    color: #c00;
+}
+
+.result-value.normal {
+    color: #060;
+}
+
+.normal-range {
+    font-size: 10px;
+    color: #666;
+    margin: 3px 0;
+}
+
+.result-details {
+    font-size: 10px;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* التذييل */
+.receipt-footer {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 11px;
+}
+
+.footer-note {
+    font-size: 9px;
+    color: #666;
+    margin-top: 3px;
+}
+
+/* إعدادات الطباعة */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .receipt {
+        width: 100%;
+        max-width: none;
+        padding: 2mm;
+    }
+    
+    @page {
+        size: 58mm auto;
+        margin: 0;
+    }
+}
+
+/* دعم طابعات 80mm */
+@media print and (min-width: 75mm) {
+    .receipt {
+        width: 80mm;
+    }
+    
+    @page {
+        size: 80mm auto;
+    }
+}

@@ -1,0 +1,190 @@
+/* Print Stylesheet */
+
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    /* For screen preview */
+    direction: rtl;
+}
+
+/* ============================
+   Format: Thermal (80mm)
+   ============================ */
+.format-thermal {
+    max-width: 80mm;
+    margin: 0 auto;
+    background: #fff;
+    padding: 10px;
+}
+
+.format-thermal .receipt-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.format-thermal .clinic-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.format-thermal .divider {
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 5px 0;
+    color: #000;
+}
+
+.format-thermal .info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3px;
+    font-size: 12px;
+}
+
+.format-thermal .item-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 2px;
+}
+
+.format-thermal .total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.format-thermal .receipt-footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+/* ============================
+   Format: A4
+   ============================ */
+.format-a4 {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20mm;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.format-a4 .header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.format-a4 .clinic-logo img {
+    max-height: 80px;
+}
+
+.format-a4 .clinic-details h1 {
+    font-size: 24px;
+    margin-bottom: 5px;
+    color: #2c3e50;
+}
+
+.format-a4 .invoice-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    background: #f8f9fa;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.format-a4 .invoice-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.format-a4 .info-group label {
+    font-weight: bold;
+    color: #7f8c8d;
+    display: block;
+}
+
+.format-a4 table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.format-a4 th {
+    background: #2c3e50;
+    color: white;
+    padding: 12px;
+    text-align: right;
+}
+
+.format-a4 td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.format-a4 .totals-section {
+    width: 300px;
+    margin-right: auto;
+    /* Align left in RTL */
+}
+
+.format-a4 .total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.format-a4 .grand-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    border-top: 2px solid #333;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+/* Print Media Query */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+    }
+
+    .format-a4,
+    .format-thermal {
+        box-shadow: none;
+        margin: 0;
+        width: 100%;
+    }
+
+    .format-a4 {
+        padding: 15mm;
+    }
+
+    /* Hide specific elements manually if needed */
+    .no-print {
+        display: none !important;
+    }
+}

@@ -1,0 +1,57 @@
+# MedFlow - نظام إدارة العيادات
+
+# Windows
+[Rr]eleases/
+x64/
+x86/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+*.exe
+*.dll
+*.pdb
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+*.swp
+*.swo
+*~
+
+# PHP
+vendor/
+composer.lock
+
+# Logs
+*.log
+logs/
+
+# Uploads (keep directory structure)
+uploads/*
+!uploads/.gitkeep
+
+# Temp files
+*.tmp
+*.temp
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Backups
+*.bak
+*.backup
+backups/
+!backups/.htaccess
+!backups/.htaccess
+
+# Node (if used)
+node_modules/

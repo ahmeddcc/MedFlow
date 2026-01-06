@@ -1,0 +1,532 @@
+/**
+ * =====================================================
+ * MedFlow - تخطيط لوحة التحكم
+ * =====================================================
+ */
+
+/* =====================================================
+   الحاوية الرئيسية
+   ===================================================== */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =====================================================
+   الشريط الجانبي
+   ===================================================== */
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--sidebar-width);
+    height: 100vh;
+    background: var(--bg-card);
+    border-left: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: width var(--transition-normal);
+    overflow: hidden;
+}
+
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+}
+
+/* شعار الشريط الجانبي */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-light);
+    min-height: var(--header-height);
+}
+
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.sidebar-logo svg {
+    width: 24px;
+    height: 24px;
+    color: white;
+}
+
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar.collapsed .sidebar-brand {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar-brand-name {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.sidebar-brand-subtitle {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+/* قائمة التنقل */
+.sidebar-nav {
+    flex: 1;
+    padding: var(--spacing-md);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.nav-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.nav-section-title {
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar.collapsed .nav-section-title {
+    opacity: 0;
+}
+
+.nav-item {
+    margin-bottom: 4px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: 0.75rem var(--spacing-md);
+    color: var(--text-secondary);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    background: var(--bg-secondary);
+    color: var(--primary);
+}
+
+.nav-link.active {
+    background: rgba(78, 205, 196, 0.1);
+    color: var(--primary);
+}
+
+.nav-link svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.nav-link-text {
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar.collapsed .nav-link-text {
+    opacity: 0;
+}
+
+.nav-link .badge {
+    margin-right: auto;
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar.collapsed .nav-link .badge {
+    opacity: 0;
+}
+
+/* تذييل الشريط الجانبي */
+.sidebar-footer {
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--border-light);
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-md);
+    transition: background var(--transition-fast);
+    cursor: pointer;
+}
+
+.sidebar-user:hover {
+    background: var(--bg-secondary);
+}
+
+.sidebar-user-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.sidebar-user-info {
+    flex: 1;
+    overflow: hidden;
+    transition: opacity var(--transition-normal);
+}
+
+.sidebar.collapsed .sidebar-user-info {
+    opacity: 0;
+    width: 0;
+}
+
+.sidebar-user-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar-user-role {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+/* زر تصغير الشريط الجانبي */
+.sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    left: -12px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    z-index: 10;
+}
+
+.sidebar-toggle:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.sidebar-toggle svg {
+    width: 14px;
+    height: 14px;
+    transition: transform var(--transition-normal);
+}
+
+.sidebar.collapsed .sidebar-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* =====================================================
+   المحتوى الرئيسي
+   ===================================================== */
+.main-content {
+    flex: 1;
+    margin-right: var(--sidebar-width);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-right var(--transition-normal);
+}
+
+.sidebar.collapsed~.main-content {
+    margin-right: var(--sidebar-collapsed-width);
+}
+
+/* الهيدر */
+.main-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--spacing-xl);
+    height: var(--header-height);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.page-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.breadcrumb a {
+    color: var(--text-secondary);
+}
+
+.breadcrumb a:hover {
+    color: var(--primary);
+}
+
+.breadcrumb-separator {
+    color: var(--text-muted);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+/* البحث في الهيدر */
+.header-search {
+    position: relative;
+    width: 280px;
+}
+
+.header-search .form-control {
+    height: 42px;
+    padding-right: 2.5rem;
+    border-radius: var(--radius-lg);
+    background: var(--bg-secondary);
+}
+
+.header-search .search-icon {
+    position: absolute;
+    top: 50%;
+    right: var(--spacing-md);
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+/* أزرار الهيدر */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.header-btn {
+    position: relative;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: none;
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.header-btn:hover {
+    background: rgba(78, 205, 196, 0.1);
+    color: var(--primary);
+}
+
+.header-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.header-btn .notification-dot {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    width: 8px;
+    height: 8px;
+    background: var(--danger);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--bg-card);
+}
+
+/* منطقة المحتوى */
+.content-area {
+    flex: 1;
+    padding: var(--spacing-xl);
+}
+
+/* =====================================================
+   التجاوب
+   ===================================================== */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-right: 0;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-normal);
+    }
+
+    .sidebar.open~.sidebar-overlay {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .mobile-menu-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-search {
+        display: none;
+    }
+
+    .content-area {
+        padding: var(--spacing-md);
+    }
+}
+
+/* =====================================================
+   صفحة المرضى
+   ===================================================== */
+.patients-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xl);
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+.patients-search {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.patients-search .form-control {
+    padding-right: 3rem;
+}
+
+.patients-search .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+/* جدول المرضى */
+.patients-table {
+    width: 100%;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.patient-avatar {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+}
+
+.patient-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.patient-number {
+    font-size: var(--font-size-xs);
+    color: var(--text-muted);
+}
+
+/* بطاقة تفاصيل المريض */
+.patient-detail-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.detail-label {
+    font-size: var(--font-size-sm);
+    color: var(--text-muted);
+}
+
+.detail-value {
+    font-weight: 600;
+    color: var(--text-primary);
+}
